@@ -1,7 +1,8 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent } from 'react'
+import { useLocalStorage } from 'react-use'
 import useSWR from 'swr'
 
 interface Currency {
@@ -32,7 +33,7 @@ interface CountryData {
 const fetcher = (url: string): Promise<CountryData[]> => fetch(url).then((res) => res.json())
 
 export default function Home() {
-  const [country, setCountry] = useState<string>('')
+  const [country, setCountry] = useLocalStorage<string>('country', '')
 
   const { data, error } = useSWR<CountryData[]>(
     country
